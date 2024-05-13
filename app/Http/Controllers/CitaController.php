@@ -9,6 +9,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
+use GuzzleHttp\Client;
+
 class CitaController extends Controller
 {
      public function listCita(){
@@ -68,6 +70,24 @@ class CitaController extends Controller
         $actualCita->delete();
 
         return response()->json(['mensaje'=>'se elimino de forma exitosa;'],201);
+
+     }
+
+     public function getNoticias(string $palabraClave){
+
+        $client = new Client();
+
+
+        $response = $client->request('GET', "https://newsapi.org/v2/everything?q=$palabraClave&language=es&apiKey=e49db7002d114162b716e554eeeb5621",['verify' => false]);
+
+        $body = $response->getBody();
+
+        // dd($body);
+        // Decodifica el JSON de la respuesta a un array asociativo
+        $data = json_decode($body, true);
+
+        // Ahora puedes manipular $data como desees
+        return $data;
 
      }
 }

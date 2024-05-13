@@ -26,4 +26,5 @@ Route::group([
     Route::post('regitrarCita',[CitaController::class,'registrar']);
     Route::put('actualizarCita/{id}',[CitaController::class,'update']);
     Route::delete('eliminarCita/{id}',[CitaController::class,'eliminar']);
+    Route::get('noticia/{palabraClave}',[CitaController::class,'getNoticias']);
 });
